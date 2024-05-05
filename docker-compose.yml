@@ -1,5 +1,4 @@
 version: "3"
-name: springboot-mysql-compose
 
 services:
   app:
@@ -7,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile2
-    image: khaliddinh/springboot
+    image: ngominhthanh852/springboot
     ports:
       - "8082:8080"
     # restart: on-failure
@@ -30,7 +29,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-      start_period: 30s
     volumes:
       - khalid-java-mysql-data:/var/lib/mysql
     networks:
@@ -40,4 +38,3 @@ volumes:
   khalid-java-mysql-data:
 networks:
   java-app:
-    name: java-app
