@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/headTag}"></div>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sideBar}"></div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <div th:replace="~{fragments/navBar}"></div>
+            <!-- End of Topbar -->
+
+            <div class="container">
+                <h1 class="text-center text-a mt-1">DANH SÁCH ĐIỂM SỐ</h1>
+
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a th:href="@{/add_score_value}" class="btn button-a mt-1">Thêm điểm</a>
+                    </div>
+                    <div>
+                        <form class="d-flex" th:action="@{/score_value}">
+                            <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa..." th:value="${keyword}">
+                            <button class="btn btn-primary" type="submit">Tìm</button>
+                        </form>
+                    </div>
+                </div>
+
+                <table class="table table-hover mt-5">
+                    <thead>
+                    <tr>
+                        <th>Cột điểm</th>
+                        <th>Điểm số</th>
+                        <th>Môn học</th>
+                        <th>Mã điểm</th>
+                        <th>Sinh viên</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="score_value : ${scoreValuePage}">
+                        <td th:text="${score_value.scoreColumnId.name}"></td>
+                        <td th:text="${score_value.value}"></td>
+                        <td th:text="${score_value.scoreId.studentSubjectId.subjectId.name}"></td>
+                        <td th:text="${score_value.scoreId.id}"></td>
+                        <td th:text="${score_value.scoreId.studentSubjectId.studentId.id}"></td>
+                        <td>
+
+                            <a th:href="@{/update_score_value/{id}(id=${score_value.id})}" class="btn button-a mr-2">Cập nhật</a>
+                            <button class="btn btn-danger" th:attr="data-score_value-id=${score_value.id}" onclick="deleteFaculty('/api/add_score_value/' + this.getAttribute('data-score_value-id'))">Xóa</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination mt-1">
+                    <li class="page-item"><a class="page-link" th:href="@{/score_value?page=0}">Tất cả</a></li>
+                    <th:block th:each="i : ${#numbers.sequence(0, scoreValuePage.totalPages-1)}">
+                        <li class="page-item"><a class="page-link" th:href="@{/score_value(page=${i})}" th:text="${i}+1"></a></li>
+                    </th:block>
+                </ul>
+                <script th:src="@{js/main.js}"></script>
+            </div>
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <div th:replace="~{fragments/footer}"></div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
+
+

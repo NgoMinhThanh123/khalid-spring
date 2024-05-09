@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/headTag}"></div>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sideBar}"></div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <div th:replace="~{fragments/navBar}"></div>
+            <!-- End of Topbar -->
+
+            <div class="container">
+                <h1 class="text-center text-a mt-1">THÊM GIẢNG VIÊN</h1>
+                <form th:object="${add_lecturer}" th:action="@{/add_lecturer}" method="post">
+                    <div style="background: #fff; padding: 24px; box-shadow: 0px 10px 23px -8px rgba(0,0,0,0.1); border-radius: 5px;">
+                        <h5 style="border-bottom: 1px solid #c3c3c3; padding-bottom: 10px">Thông tin giảng viên</h5>
+                        <div class="row" style="padding-top: 10px">
+
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="id">ID</label>
+                                    <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
+                                    <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="name">Tên giảng viên</label>
+                                    <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên giảng viên" name="name" />
+                                    <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="birthday">Ngày sinh</label>
+                                    <input type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
+                                    <div th:if="${#fields.hasErrors('birthday')}" class="text-danger">Lỗi: <span th:errors="*{birthday}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="identification">Căn cước công dân</label>
+                                    <input type="text" class="form-control" th:field="*{identification}" id="identification" placeholder="Căn cước công dân" name="identification" />
+                                    <div th:if="${#fields.hasErrors('identification')}" class="text-danger">Lỗi: <span th:errors="*{identification}"></span></div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="phone">Số điện thoại</label>
+                                    <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="VD: 0353894917" name="phone" />
+                                    <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="VD: xxx@gmail.com" name="email" />
+                                    <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="name">Địa chỉ</label>
+                                    <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="VD: XXX đường YYY" name="address" />
+                                    <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label style="display: block" for="gender">Giới tính</label>
+                                    <select style="padding: 5px 10px; border-radius: 5px" class="form-select" id="gender" name="gender">
+                                        <option value="1" selected>Nam</option>
+                                        <option value="0">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div  style="background: #fff; padding: 24px; margin-top: 10px; box-shadow: 0px 10px 23px -8px rgba(0,0,0,0.1); border-radius: 5px;">
+                        <h5 style="border-bottom: 1px solid #c3c3c3; padding-bottom: 10px">Thông tin khóa</h5>
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label style="display: block" for="faculty" class="form-label">Khoa</label>
+                                    <select  style="width: 100%; padding: 5px 10px; border-radius: 5px" class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">
+                                        <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label style="display: block" for="user" class="form-label">Mã tài khoản</label>
+                                    <select  style="width: 100%; padding: 5px 10px; border-radius: 5px" class="form-select" th:field="*{userId}" id="user" name="user">
+                                        <option th:each="f : ${user}" th:value="${f.id}" th:text="${f.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label style="display: block" for="classes" class="form-label">Mã lớp</label>
+                                    <select  style="width: 100%; padding: 5px 10px; border-radius: 5px" class="form-select" th:field="*{classesId}" id="classes" name="classes">
+                                        <option value="">-- Chọn mã lớp --</option>
+                                        <option th:each="f : ${classes}" th:value="${f.id}" th:text="${f.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3 mt-3 d-flex justify-content-end">
+                        <button type="submit" class="btn button-a">Thêm giảng viên</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <div th:replace="~{fragments/footer}"></div>
+        <!-- End of Footer -->
+</div>
+    </div>
+    <!-- End of Content Wrapper -->
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/headTag}"></div>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sideBar}"></div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <div th:replace="~{fragments/navBar}"></div>
+            <!-- End of Topbar -->
+
+            <div class="container">
+                <h1 class="text-center text-a mt-1">DANH SÁCH GIÁ TÍN CHỈ</h1>
+
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a th:href="@{/add_credit_price}" class="btn button-a mt-1">Thêm giá tín chỉ</a>
+                    </div>
+                    <div>
+                        <form class="d-flex" th:action="@{/credit_price}">
+                            <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa..." th:value="${keyword}">
+                            <button class="btn btn-primary" type="submit">Tìm</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <table class="table table-hover mt-5">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Giá</th>
+                        <th>Chuyên ngành</th>
+                        <th>Năm học</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="credit_price : ${creditPricePage}">
+                        <td th:text="${credit_price.id}"></td>
+                        <td th:text="${credit_price.price}"></td>
+                        <td th:text="${credit_price.majorId.name}"></td>
+                        <td th:text="${credit_price.semesterId.schoolYear}"></td>
+                        <td>
+                            <a th:href="@{/update_credit_price/{id}(id=${credit_price.id})}" class="btn button-a mr-2">Cập nhật</a>
+                            <button class="btn btn-danger" th:attr="data-credit_price-id=${credit_price.id}"
+                                    onclick="deleteFaculty('/api/update_credit_price/' + this.getAttribute('data-credit_price-id'))">Xóa
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="pagination mt-1">
+                    <li class="page-item"><a class="page-link" th:href="@{/credit_price?page=1}">Tất cả</a></li>
+                    <th:block th:each="i : ${#numbers.sequence(0, creditPricePage.totalPages-1)}">
+                        <li class="page-item"><a class="page-link" th:href="@{/credit_price(page=${i})}" th:text="${i}+1"></a></li>
+                    </th:block>
+                </ul>
+                <script th:src="@{js/main.js}"></script>
+            </div>
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <div th:replace="~{fragments/footer}"></div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>

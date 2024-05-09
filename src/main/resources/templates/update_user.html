@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/headTag}"></div>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <div th:replace="~{fragments/sideBar}"></div>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <div th:replace="~{fragments/navBar}"></div>
+      <!-- End of Topbar -->
+
+      <div class="container">
+        <h1 class="text-center text-a mt-1">CẬP NHẬT TÀI KHOẢN</h1>
+        <form th:object="${update_user}" th:action="@{/update_user}" method="post" enctype="multipart/form-data">
+          <input type="hidden" th:field="*{id}" />
+          <input type="hidden" th:field="*{avatar}" />
+          <div class="form-floating mb-3 mt-3">
+            <label for="username">Tài khoản</label>
+            <input type="text" class="form-control"  th:field="*{username}" id="username" placeholder="Tài khoản" name="username" />
+            <div th:if="${#fields.hasErrors('username')}" class="text-danger">Lỗi: <span th:errors="*{username}"></span></div>
+          </div>
+          <div class="form-floating mb-3 mt-3">
+            <label for="password">Mật khẩu</label>
+            <input type="text" class="form-control"  th:field="*{password}" id="password" placeholder="Mật khẩu" name="password" />
+            <div th:if="${#fields.hasErrors('password')}" class="text-danger">Lỗi: <span th:errors="*{password}"></span></div>
+          </div>
+          <div class="form-floating mb-3 mt-3">
+            <label for="email">Email</label>
+            <input type="text" class="form-control"  th:field="*{email}" id="email" placeholder="Email" name="email" />
+            <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
+          </div>
+          <div class="form-floating">
+            <label for="role" class="form-label">Quyền</label>
+            <select class="form-select" id="role" name="role" th:field="*{role}">
+              <option value="ROLE_GIAOVU">Giáo vụ</option>
+              <option value="ROLE_GIANGVIEN">Giảng viên</option>
+              <option value="ROLE_SINHVIEN">Sinh viên</option>
+            </select>
+          </div>
+          <div class="form-floating mb-3 mt-3">
+            <label for="file">Ảnh của bạn</label>
+            <input type="file" class="form-control" id="file" name="file" th:field="*{file}"/>
+            <img th:if="${update_user.isPresent() and update_user.get().avatar != null}" th:src="${update_user.get().avatar}" width="100"/>
+          </div>
+          <div class="form-floating mb-3 mt-3">
+            <button type="submit" class="btn button-a">
+              Cập nhật tài khoản
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer}"></div>
+    <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
+

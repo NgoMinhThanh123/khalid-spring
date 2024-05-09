@@ -1,3 +1,0 @@
-CREATE USER 'root'@'%' IDENTIFIED BY 'Thanh@123';
-GRANT ALL PRIVILEGES ON db_example.* TO 'root'@'%';
-FLUSH PRIVILEGES;
